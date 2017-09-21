@@ -11,5 +11,6 @@ class Cindex extends CI_Controller
 	{
 		$this->load->view("vindex");
 	}
+
 }
  ?>

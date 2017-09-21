@@ -1,1 +1,1 @@
-<?php echo $status; ?>c
+<?php echo $status; ?>
