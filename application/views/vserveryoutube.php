@@ -2,11 +2,10 @@
 //require library
 require_once("phpQuery/phpQuery/phpQuery.php");
 
-//kumpulkan data chanel dalam array
-$chanel    = array(
-			"https://www.youtube.com/channel/UCpSPS5yLCxYRuZSrCx-eBjA",
-			"https://www.youtube.com/channel/UCIZeYTn7gMtDrBeNGhoqOmw"
-			);
+//lakukan foreach untuk mangambil data linknya saja
+foreach ($hasil["data"] as $key => $value) {
+	$chanel[] = $value->link;
+}
 
 //fungsi untuk mendapatkan informasi chanel
 function chanelinfo($chanel){
@@ -38,7 +37,7 @@ function chanelinfo($chanel){
 	print_r($data);
 
 	//jadikan data sebagai query
-	$data = http_build_query($data);
+	$data = http_build_query($data, "", "&");
 
 	//gabungkan url save db chanel dengan field
 	$data_get = "http://localhost/index.php/Csavedb/csavedbf?media=c&" . $data;
@@ -57,6 +56,7 @@ function grabyoutubevideos($chanel){
 	//data grab youtube
 	$dom    = phpQuery::newDocument($get);
 	$list   = pq("#channels-browse-content-grid li.channels-content-item.yt-shelf-grid-item");
+	$name   = pq(".spf-link.branded-page-header-title-link.yt-uix-sessionlink");
 	$gambar = $list->find("img");
 	$judul  = $list->find(".yt-lockup-title a");
 	$time   = $list->find(".video-time span");
@@ -66,6 +66,7 @@ function grabyoutubevideos($chanel){
 		//mengumpulkan data menjadi array
 		$data = array(
 			"chanel" => $chanel,
+			"name"	 => $name->text(),
 			"gambar" => $gambar->eq($a)->attr("src"),
 			"judul"  => $judul->eq($a)->text(),
 			"link"   => "http://youtube.com" . $judul->eq($a)->attr("href"),
@@ -78,7 +79,7 @@ function grabyoutubevideos($chanel){
 
 
 		//jadikan data sebagai query
-		$data      = http_build_query($data);
+		$data      = http_build_query($data, "", "&");
 
 		//gabungkan url save db dengan data field
 		$data_get = "http://localhost/index.php/Csavedb/csavedbf?media=v&" . $data;
@@ -99,6 +100,7 @@ function grabyoutubeplaylists($chanel){
 	//data playlist
 	$dom          = phpQuery::newDocument($get);
 	$list         = pq("ul#channels-browse-content-grid li.channels-content-item.yt-shelf-grid-item");
+	$name         = pq(".spf-link.branded-page-header-title-link.yt-uix-sessionlink");
 	$gambar       = $list->find("img");
 	$link         = $list->find("a.yt-uix-sessionlink.yt-uix-tile-link.spf-link.yt-ui-ellipsis.yt-ui-ellipsis-2");
 	$total_videos = $list->find("span.formatted-video-count-label b");
@@ -108,6 +110,7 @@ function grabyoutubeplaylists($chanel){
 		//data utama berita disini
 		$data = array(
 			"chanel"	   => $chanel,
+			"name"         => $name->text(),
 			"gambar"       => $gambar->eq($a)->attr("src"),
 			"judul"        => $link->eq($a)->text(),
 			"link"         => "http://youtube.com" . $link->eq($a)->attr("href"),
@@ -119,7 +122,7 @@ function grabyoutubeplaylists($chanel){
 		print_r($data);
 
 		//jadikan data sebagai query
-		$data     = http_build_query($data);
+		$data     = http_build_query($data, "", "&");
 
 		//gabungkan url save db dengan data field
 		$data_get = "http://localhost/index.php/Csavedb/csavedbf?media=p&" . $data;

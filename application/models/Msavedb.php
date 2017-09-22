@@ -32,6 +32,22 @@ class Msavedb extends CI_Model
 		//=======//
 	}
 
+	//fungsi untuk update data di database
+	function msavedbupdate($file, $table, $cond_column, $cond_data){
+		$query = $this->db->update($table, $file)->where($cond_column, $cond_data);
+
+		if ($query) {
+			return true;
+		}else{
+			return false;
+		}
+	}
+
 	//fungsi untuk
+	function msavedbcolumn($file, $table, $colum){
+		$query = $this->db->query("INSERT INTO $table ($column) VALUES('$file')");
+
+		return $query;
+	}
 }
  ?>
