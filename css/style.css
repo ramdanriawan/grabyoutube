@@ -15,6 +15,14 @@ span>a#logo{
 
 }
 
+button.btn.btn-success#btn-get-data{
+margin: 0 10px;
+}
+
+#container-body{
+margin: 15px;
+}
+
 @media screen and (max-width: 480px) {
 	#menu_header{
 		margin-top: 10px;

@@ -44,7 +44,7 @@ class Msavedb extends CI_Model
 	}
 
 	//fungsi untuk
-	function msavedbcolumn($file, $table, $colum){
+	function msavedbcolumn($file, $table, $column){
 		$query = $this->db->query("INSERT INTO $table ($column) VALUES('$file')");
 
 		return $query;

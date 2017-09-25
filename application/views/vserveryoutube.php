@@ -2,9 +2,14 @@
 //require library
 require_once("phpQuery/phpQuery/phpQuery.php");
 
-//lakukan foreach untuk mangambil data linknya saja
-foreach ($hasil["data"] as $key => $value) {
-	$chanel[] = $value->link;
+//cek dengan kondisi if jika terdapat permintaan update manual atau tidak
+if(strtolower($this->input->get("update")) == "active"){
+	$chanel[] = $this->input->get("update");
+}else {
+	//lakukan foreach untuk mangambil data linknya saja
+	foreach ($hasil["data"] as $key => $value) {
+		$chanel[] = $value->link;
+	}
 }
 
 //fungsi untuk mendapatkan informasi chanel

@@ -63,6 +63,13 @@ class Mindex extends CI_Model
     return $link;
   }
 
-  //fungsi untuk
+  //fungsi untuk menampilkan semua data
+  function show($table, $column_order, $order_by, $start, $limit)
+  {
+    $sql = "select * from $table order by $column_order $order_by LIMIT $start,$limit";
+    $query = $this->db->query($sql);
+
+    return $query;
+  }
 }
  ?>

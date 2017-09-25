@@ -74,14 +74,14 @@
   }
 
   //fungsi untuk save hanya satu kolom table
-  function csavedbcolumn($file, $table, $colum){
-  	$file  = $this->input->get("file");
-  	$table = $this->input->get("table");
+  function csavedbcolumn(){
+  	$file   = $this->input->get("file");
+  	$table  = $this->input->get("table");
   	$column = $this->input->get("column");
 
   	$this->load->model("Msavedb");
 
-  	$nilai = $this->Msavedb->msavedbcolumn($file, $table, $colum);
+  	$nilai = $this->Msavedb->msavedbcolumn($file, $table, $column);
 
   	if($nilai){
   		$data["status"] = "success";
